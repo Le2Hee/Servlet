@@ -81,5 +81,6 @@
             request.var2: ${ var2 } <br /> <%-- ${requestScope.var2}과 동일 --%>
             session.var3: ${ sessionScope.var2 } <br />
          </p>
+         
     </body>
 </html>
