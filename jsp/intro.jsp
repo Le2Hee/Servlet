@@ -1,4 +1,4 @@
-<%@page import="java.time.LocalDateTime"%> <%-- Java class의 import 문장 --%>
+<%@ page import="java.time.LocalDateTime"%> <%-- Java class의 import 문장 --%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%-- page 지시문: JSP 페이지의 설정. 컨텐트 타입 설정이나, 인코딩 설정과 같은 것들을 담당하는 걸
