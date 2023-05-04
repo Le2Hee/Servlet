@@ -9,7 +9,11 @@
     </head>
     <body>
         <jsp:include page="header.jsp"></jsp:include>
-        
+        <%--
+            - <%@ include %> 지시문과 비슷하게 다른 JSP의 내용을 포함시킴.
+            - jspf 확장자를 사용할 수 없고, jsp만 사용.
+            - include하는 JSP 마다 각각의 Java 파일과 클래스들이 생성됨.
+         --%> 
     
         <h1>JSP Action Tag</h1>
         <%--
@@ -55,7 +59,28 @@
         <jsp:setProperty property="name" name="c2" value="이찬희"/>
         <p>
         c2.name: <jsp:getProperty property="name" name="c2"/>
-        </p>>
+        </p>
         
+        <%
+        Contact c3 = new Contact(1, "오쌤", "010-0000-0000", "jake@itwill.com");
+        // 자바문법을 알아야 할 수 있다.
+        %>
+        <jsp:useBean id="c4" class="com.itwill.jsp1.model.Contact">
+            <jsp:setProperty property="id" value="2"  name="c4"/> 
+            <jsp:setProperty property="name" value="GENESIS"  name="c4"/> 
+            <jsp:setProperty property="phone" value="080-700-6000"  name="c4"/> 
+            <jsp:setProperty property="email" value="genesis@genesis.com"  name="c4"/> 
+        </jsp:useBean>
+        <!-- 자바 문법 몰라도 할 수 있다. -->
+        <p>
+            <jsp:getProperty property="id" name="c4"/>
+            <br />
+            <jsp:getProperty property="name" name="c4"/>
+            <br />
+            <jsp:getProperty property="phone" name="c4"/>
+            <br />
+            <jsp:getProperty property="email" name="c4"/>
+        </p>
+          
     </body>
 </html>
