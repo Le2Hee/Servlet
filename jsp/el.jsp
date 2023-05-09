@@ -49,7 +49,7 @@
                 ${ pageScope.var } (${ var }이 pageScope에 있는지 찾는다.)
                 못찾으면 -> ${ requestScope.var } 
                 못찾으면 -> ${ sessionScope.var } 
-                못찾으면 -> ${ applicationScope.var } 
+                못찾으면 -> ${ applicationScope.var } (여기서 못찾으면 null이 된다.)
                 
           --%>
          
