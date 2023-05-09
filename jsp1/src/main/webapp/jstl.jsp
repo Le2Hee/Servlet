@@ -91,7 +91,10 @@
          </table>
          
          <h2>JSTL, EL를 이용한 Table 작성</h2>
-         
+         <%-- EL은 지역변수로 접근할 수 없기 때문에 pageContext.setAttribute("contacts", list);
+              를 사용한다. 
+              장점 : 코드가 Java코드 처럼 보이지 않고 html 코드처럼 보인다. --%>
+              
          <table>
             <caption>JSTL, EL Table</caption>
             <thead>
@@ -105,10 +108,12 @@
             <tbody>
                 <c:forEach items="${ contacts }" var="cs">
                     <tr>
-                        <td>${ cs.getId() }</td>
-                        <td>${ cs.getName() }</td>
-                        <td>${ cs.getPhone() }</td>
-                        <td>${ cs.getEmail() }</td>
+                        <td>${ cs.id }</td> 
+                        <td>${ cs.name }</td>
+                        <td>${ cs.phone }</td>
+                        <td>${ cs.email }</td>
+                        <%-- get()가 있으면 알아서 찾는다. 그 대신 존재해야 하며 get관습이
+                             딱 맞게 있어야 사용할 수 있다. --%>
                     </tr>
                 </c:forEach>
             </tbody>
