@@ -35,7 +35,8 @@
          <h2>JSTL, EL</h2>
          <ul>
             <c:forEach items="${ sites }" var="s"> 
-            <%-- prefix="c" 로 지정했기 때문에 c로 해야된다. --%>
+            <%-- prefix="c" 로 지정했기 때문에 c로 해야된다. 
+                 라이브러리를 사용할때 c라는 접두사를 사용하겠다. --%>
                 <li>${ s }</li>
             </c:forEach>
          </ul>
