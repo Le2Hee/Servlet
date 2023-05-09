@@ -1,3 +1,5 @@
+<%@page import="com.itwill.jsp1.model.Contact"%>
+<%@page import="java.util.ArrayList"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8" trimDirectiveWhitespaces="true" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
@@ -6,6 +8,17 @@
     <head>
         <meta charset="UTF-8">
         <title>JSP</title>
+        <style>
+            table {
+                whidth: 100%;
+                border: 1px solid #444444;
+            }
+            
+            th, td {
+                border: 1px solid #444444;
+            }
+            
+        </style>
     </head>
     <body>
         <h1>JSTL</h1>
@@ -40,6 +53,66 @@
                 <li>${ s }</li>
             </c:forEach>
          </ul>
+         
+         <%-- 테이블에서 사용할 더미 데이터 --%>
+         <%
+         ArrayList<Contact> list = new ArrayList<>();
+         for (int i = 0; i < 5; i++) {
+             Contact c = new Contact(i, "이름_" + i, "phone_" + i, "email_" + i);
+             list.add(c);
+         }
+         
+         // 리스트를 EL에서 사용할 수 있도록 
+         pageContext.setAttribute("contacts", list);
+         %>
+         
+         <h2>JSP를 이용한 Table 작성</h2>
+         
+         <table >
+            <caption>JSP Table</caption>
+            <thead>
+                <tr>
+                    <th>번호</th>
+                    <th>이름</th>
+                    <th>전화번호</th>
+                    <th>이메일</th>
+                </tr>
+            </thead>
+            <tbody>
+                <% for (Contact c : list) { %>
+                    <tr>
+                        <td><%= c.getId() %></td>
+                        <td><%= c.getName() %></td>
+                        <td><%= c.getPhone() %></td>
+                        <td><%= c.getEmail() %></td>
+                    </tr>
+                <% } %>
+            </tbody>
+         </table>
+         
+         <h2>JSTL, EL를 이용한 Table 작성</h2>
+         
+         <table>
+            <caption>JSTL, EL Table</caption>
+            <thead>
+                <tr>
+                    <th>번호</th>
+                    <th>이름</th>
+                    <th>전화번호</th>
+                    <th>이메일</th>
+                </tr>
+            </thead>
+            <tbody>
+                <c:forEach items="${ contacts }" var="cs">
+                    <tr>
+                        <td>${ cs.getId() }</td>
+                        <td>${ cs.getName() }</td>
+                        <td>${ cs.getPhone() }</td>
+                        <td>${ cs.getEmail() }</td>
+                    </tr>
+                </c:forEach>
+            </tbody>
+         </table>
          
     </body>
 </html>
