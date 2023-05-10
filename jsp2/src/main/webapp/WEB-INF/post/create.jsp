@@ -5,23 +5,24 @@
 <html>
     <head>
         <meta charset="UTF-8">
-        <title>Post</title>
+        <title>Post Create</title>
     </head>
     <body>
-        <header>
-        <h1>메인 페이지</h1>
-        </header>
+        <heager>
+            <h1>새 포스트 작성</h1>
+        </heager>
         
         <nav>
             <ul>
                 <li>
-                    <c:url var="postList" value="/post">포스트 목록 페이지</c:url>
+                    <c:url var="mainPage" value="/" ></c:url>
+                    <a href="${ mainPage }">메인 페이지</a>
+                </li>
+                <li>
+                    <c:url var="postList" value="/post"></c:url>
                     <a href="${ postList }">포스트 목록 페이지</a>
-                    <%-- / : 무조건 context root <c:url> 이용해서 경로를 확실히 정하기. --%>
-                    
                 </li>
             </ul>
         </nav>
-        
     </body>
 </html>

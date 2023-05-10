@@ -12,6 +12,7 @@ import java.io.IOException;
  */
 @WebServlet(name = "homeController", urlPatterns = {""})
 // ""(빈 문자열) : "http://localhost:8081/post/"까지의 요청주소(context root)를 처리하는 서블릿.
+// /(/ 만 있는 것) : 모든 요청을 다 처리하는 것. -> ("http://localhost:8081/post/...") 전부 다 가능.
 public class HomeController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
