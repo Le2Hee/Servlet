@@ -6,7 +6,6 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.List;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -15,13 +14,13 @@ import com.itwill.post.model.Post;
 import com.itwill.post.service.PostService;
 
 /**
- * Servlet implementation class PostController
+ * Servlet implementation class PostUpdateController
  */
-@WebServlet(name = "postListController", urlPatterns = {"/post"})
-public class PostListController extends HttpServlet {
+@WebServlet(name = "postUpdateController", urlPatterns = {"/post/detail"})
+public class PostReadController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	
-	private static final Logger log = LoggerFactory.getLogger(PostListController.class);
+	private static final Logger log = LoggerFactory.getLogger(PostReadController.class);
 	
 	private final PostService postService = PostService.getInstance();
 
@@ -31,16 +30,18 @@ public class PostListController extends HttpServlet {
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) 
 	        throws ServletException, IOException {
-//	    System.out.println("PostListController doGet() 호출");
 	    log.info("doGet()");
 	    
-	    // Service 계층의 메서드를 호출해서 포스트 목록을 불러옴.
-	    List<Post> posts = postService.read();
+	    int id = Integer.parseInt(request.getParameter("id"));
+        
+        Post post = postService.read(id);
+        log.info("read({})", id);
+        
+        request.setAttribute("post", post);
 	    
-	    // 포스트 목록을 JSP에게 전달.
-	    request.setAttribute("posts", posts);
+	    request.getRequestDispatcher("/WEB-INF/post/detail.jsp").forward(request, response);
 	    
-	    request.getRequestDispatcher("/WEB-INF/post/postList.jsp").forward(request, response);
+	    
 	}
 
 }

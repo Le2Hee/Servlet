@@ -18,7 +18,6 @@
                     <c:url var="postList" value="/post">포스트 목록 페이지</c:url>
                     <a href="${ postList }">포스트 목록 페이지</a>
                     <%-- / : 무조건 context root <c:url> 이용해서 경로를 확실히 정하기. --%>
-                    
                 </li>
             </ul>
         </nav>
