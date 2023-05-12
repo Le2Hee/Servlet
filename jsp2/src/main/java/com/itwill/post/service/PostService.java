@@ -41,10 +41,46 @@ public class PostService {
         return postDao.insert(post);
     }
 
-    public Post read(int id) {
+    public Post read(long id) {
         log.info("read({})", id);
         
         return postDao.read(id);
+    }
+
+    public int delete(long id) {
+        log.info("read({})", id);
+        
+        return postDao.delete(id);
+    }
+
+    public int update(Post post) {
+        log.info("update({})", post);
+        
+        return postDao.update(post);
+    }
+
+    public List<Post> readByTKey(String keyword) {
+        log.info("readByTKey({})", keyword);
+        
+        return postDao.readByTKey(keyword);
+    }
+
+    public List<Post> readByCKey(String keyword) {
+        log.info("readByCKey({})", keyword);
+        
+        return postDao.readByCKey(keyword);
+    }
+
+    public List<Post> readByTcKey(String keyword) {
+        log.info("readByTcKey({})", keyword);
+        
+        return postDao.readByTcKey(keyword);
+    }
+
+    public List<Post> readByAKey(String keyword) {
+        log.info("readByAKey({})", keyword);
+        
+        return postDao.readByAKey(keyword);
     }
     
 }

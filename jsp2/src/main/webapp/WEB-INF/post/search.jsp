@@ -5,9 +5,9 @@
 <html>
     <head>
         <meta charset="UTF-8">
-        <title>Post</title>
+        <title>Post Search</title>
         <style>
-        #rogo {
+        header {
             padding: 10px;
             background-color: #e5fff9;
             text-align: center;
@@ -72,26 +72,22 @@
             background-color: #ff9980;
             color: #fff;
         }
-        
-        
         </style>
     </head>
     <body>
-        <header id="rogo">
-            <h1>포스트 목록 페이지</h1>
+        <header>
+            <h1>포스트 검색</h1>
         </header>
         
         <nav>
             <ul>
                 <li>
-                    <%-- 상대경로에서 현재 폴더(./)의 의미는 : context root까지의 주소
-                        http://localhost:8081/post/ 까지의 주소를 의미 한다.
-                                            (post : context root)
-                     --%>
-                    <%-- <a href="./">메인 페이지</a> --%>
-                    
                     <c:url var="mainPage" value="./"></c:url>
                     <a href="${ mainPage }">메인 페이지</a>
+                </li>
+                <li>
+                    <c:url var="postList"  value="/post" />
+                    <a href="${ postList }">포스트 목록 페이지</a>
                 </li>
                 <li>
                     <c:url var="postCreate" value="/post/create"></c:url>
@@ -132,19 +128,6 @@
                     </c:forEach>
                 </tbody>
             </table>
-            
-            <c:url value="/post/search" var="searchPage"></c:url>
-            <form action="${ searchPage }">
-                <select name="category">
-                    <option value="t">제목</option>
-                    <option value="c">내용</option>
-                    <option value="tc">제목 + 내용</option>
-                    <option value="a">작성자</option>
-                </select>
-                <input type="text" name="keyword" placeholder="검색어" 
-                    required autofocus/>
-                <input type="submit" value="검색" />
-            </form>
         </main>
         
     </body>

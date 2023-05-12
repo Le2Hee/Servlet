@@ -14,13 +14,13 @@ import com.itwill.post.model.Post;
 import com.itwill.post.service.PostService;
 
 /**
- * Servlet implementation class PostUpdateController
+ * Servlet implementation class PostModifyController
  */
-@WebServlet(name = "postReadController", urlPatterns = {"/post/detail"})
-public class PostReadController extends HttpServlet {
+@WebServlet(name = "postModifyController", urlPatterns = {"/post/modify"})
+public class PostModifyController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	
-	private static final Logger log = LoggerFactory.getLogger(PostReadController.class);
+	private static final Logger log = LoggerFactory.getLogger(PostModifyController.class);
 	
 	private final PostService postService = PostService.getInstance();
 
@@ -32,14 +32,18 @@ public class PostReadController extends HttpServlet {
 	        throws ServletException, IOException {
 	    log.info("doGet()");
 	    
+	    // 수정할 포스트 번호를 요청 파라미터에서 찾기.
 	    long id = Long.parseLong(request.getParameter("id"));
-        
-        Post post = postService.read(id);
-        log.info("post: {}", post);
-        
-        request.setAttribute("post", post);
+	    log.info("id: {}", id);
 	    
-	    request.getRequestDispatcher("/WEB-INF/post/detail.jsp").forward(request, response);
+	    // 수정할 포스트 검색하기.
+	    Post post = postService.read(id);
+	    
+	    // 포스트 객체를 request의 속성으로 설정.
+	    request.setAttribute("post", post);
+		
+	    // 뷰로 포워드
+	    request.getRequestDispatcher("/WEB-INF/post/modify.jsp").forward(request, response);
 	    
 	}
 

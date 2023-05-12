@@ -5,11 +5,58 @@
 <html>
     <head>
         <meta charset="UTF-8">
-        <title>Post</title>
+        <title>Post</title>http://localhost:8081/post/post/create
+        <style>
+        header {
+            background-color: #e5fff9;
+            padding: 10px;
+            width: 100%;
+            text-align: center;
+        }
+        
+        nav {
+            font: 17px 'Nanum Gothic', sans-serif;
+        }
+        
+        li > a {
+            text-decoration: none;
+            color: #404040;
+        }
+        
+        li {
+            list-style: none;
+        }
+        
+        ul {
+            width: 500px;
+            height: 50px;
+            overflow: hidden;
+            margin: 0 auto;
+        }
+        
+        ul, li {
+            float: left;
+            width: 100%;
+            height: 100%;
+            line-height: 50px;
+            text-align: center;
+            background:     ;
+        }
+        
+        ul, li, li > a {
+            display: block;
+        }
+        
+        ul, li, li > a:hover {
+            background-color: #ff9980;
+            color: #fff;
+        }
+        
+        </style>
     </head>
     <body>
         <header>
-        <h1>메인 페이지</h1>
+            <h1>메인 페이지</h1>
         </header>
         
         <nav>

@@ -7,27 +7,76 @@
         <meta charset="UTF-8">
         <title>Post read</title>
         <style>
+            header {
+                background-color: #e5fff9;
+                padding: 10px;
+                text-align: center;
+            }
+        
+            <%--
             div#title {
                 border: 2px solid #d99fff;
-                background-color: #87a5ff;
                 text-align: center;
             }
             
             div#author {
-                border: 1px solid black;
-                background-color:   #00bfff;
                 text-align: right;
             }
             
-            div#content{
+            div#content {
+                padding: 30%;
                 border: 1px solid black;
                 text-align: center;
             }
+            
+            div#time {
+                text-align: right;
+            }
+            --%>
+            nav {
+            font: 17px 'Nanum Gothic', sans-serif;
+        }
+        
+        li > a {
+            text-decoration: none;
+            color: #404040;
+        }
+        
+        li {
+            list-style: none;
+        }
+        
+        ul {
+            width: 500px;
+            height: 50px;
+            overflow: hidden;
+            margin: 0 auto;
+        }
+        
+        ul, li {
+            float: left;
+            width: 100%;
+            height: 100%;
+            line-height: 50px;
+            text-align: center;
+            background:     ;
+        }
+        
+        ul, li, li > a {
+            display: block;
+        }
+        
+        ul, li, li > a:hover {
+            background-color: #ff9980;
+            color: #fff;
+        }
+            
+            
         </style>
     </head>
     <body>
         <header>
-            <h1>포스트 보기</h1>
+            <h1>포스트 상세보기 페이지</h1>
         </header>
         
         <nav>
@@ -40,11 +89,39 @@
                     <c:url var="postList"  value="/post" />
                     <a href="${ postList }">포스트 목록 페이지</a>
                 </li>
+                <li>
+                    <c:url var="postModify" value="/post/modify">
+                        <c:param name="id" value="${ post.id }"></c:param>
+                    </c:url>
+                    <a href="${ postModify }">포스트 수정</a>
+                </li>
             </ul>
         </nav>
         
+        
+        
         <main>
-            <div id="title">
+            <form>
+                <div>번호 :
+                    <input type="text" value="${ post.id }" readonly />
+                </div>
+                <div>제목 :
+                    <input type="text" value="${ post.title }" readonly />
+                </div>
+                <div>내용 :
+                    <textarea rows="5" cols="80" readonly>${ post.content }</textarea>
+                </div>
+                <div>작성자 :
+                    <input type="text" value="${ post.author }"  readonly />
+                </div>
+                <div>작성 시간 :
+                    <input type="text" value="${ post.createdTime }" readonly />
+                </div>
+                <div>수정 시간 :
+                    <input type="text" value="${ post.modifiedTime }" readonly />
+                </div>
+            </form>
+       <!-- <div id="title">
                 <h1>${ post.title }</h1>
             </div>
             <div id="author">
@@ -53,6 +130,10 @@
             <div id="content">
                 <h2>${ post.content }</h2>
             </div>
+            <div id="time">
+                <h4>${ post.modifiedTime }</h4>
+            </div> -->
         </main>
+        
     </body>
 </html>

@@ -96,6 +96,7 @@ public class PostDao {
     
     public int insert(Post post) {
         log.info("insert({})", post);
+        log.info(SQL_INSERT);
         
         int result = 0; // executeUpdate() 결과(insert 결과)를 저장할 변수.
         Connection conn = null;
@@ -129,8 +130,9 @@ public class PostDao {
     
     private static final String SQL_READ = "select * from POSTS where id = ?";
 
-    public Post read(int id) {
+    public Post read(long id) {
         log.info("read({})", id);
+        log.info(SQL_READ);
         
         Connection conn = null;
         PreparedStatement stmt = null;
@@ -140,7 +142,7 @@ public class PostDao {
         try {
             conn = ds.getConnection();
             stmt = conn.prepareStatement(SQL_READ);
-            stmt.setInt(1, id);
+            stmt.setLong(1, id);
             rs = stmt.executeQuery();
             
             if (rs.next()) {
@@ -167,6 +169,242 @@ public class PostDao {
         }
         
         return post;
+    }
+    
+    private static final String SQL_DELETE_BY_ID = "delete from POSTS where id = ?";
+
+    public int delete(long id) {
+        log.info("delete(id={})", id);
+        log.info(SQL_DELETE_BY_ID);
+        
+        
+        int result = 0;
+        
+        Connection conn = null;
+        PreparedStatement stmt = null;
+        
+        try {
+            conn = ds.getConnection();
+            stmt = conn.prepareStatement(SQL_DELETE_BY_ID);
+            stmt.setLong(1, id);
+            
+            result = stmt.executeUpdate();
+            
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                stmt.close();
+                conn.close();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+        
+        return result;
+    }
+    
+    private static final String SQL_UPDATE_BY_ID = 
+      "update POSTS set title = ?, content = ?, modified_time = sysdate where id = ?";
+    
+    public int update(Post post) {
+        log.info("update({})", post);
+        log.info(SQL_UPDATE_BY_ID);
+        
+        int result = 0;
+        Connection conn = null;
+        PreparedStatement stmt = null;
+        
+        try {
+            conn = ds.getConnection();
+            stmt = conn.prepareStatement(SQL_UPDATE_BY_ID);
+            stmt.setString(1, post.getTitle());
+            stmt.setString(2, post.getContent());
+            stmt.setLong(3, post.getId());
+            
+            result = stmt.executeUpdate();
+            
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                stmt.close();
+                conn.close();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+        
+        return result;
+    }
+    
+    private static final String SQL_READBYTKEY_BY_T = 
+            "select * from posts "
+                    + "where lower(title) like lower(?) "
+                    + "order by id desc";
+
+    public List<Post> readByTKey(String keyword) {
+        log.info("readByTKey({})", keyword);
+        List<Post> list = new ArrayList<>();
+        
+        Connection conn = null;
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
+        
+        try {
+            conn = ds.getConnection();
+            stmt = conn.prepareStatement(SQL_READBYTKEY_BY_T);
+            keyword = "%" + keyword + "%";
+            stmt.setString(1, keyword);
+           
+            
+            rs = stmt.executeQuery();
+            
+            while(rs.next()) {
+                Post post = recordToPost(rs);
+                list.add(post);
+            }
+            log.info("list: {}", list);
+            
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                rs.close();
+                stmt.close();
+                conn.close();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+        
+        return list;
+    }
+    
+    private static final String SQL_READBYTKEY_BY_C = 
+            "select * from posts "
+                    + "where lower(content) like lower(?) "
+                    + "order by id desc";
+
+    public List<Post> readByCKey(String keyword) {
+        log.info("readByCKey({})", keyword);
+        List<Post> list = new ArrayList<>();
+        
+        Connection conn = null;
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
+        
+        try {
+            conn = ds.getConnection();
+            stmt = conn.prepareStatement(SQL_READBYTKEY_BY_C);
+            keyword = "%" + keyword + "%";
+            stmt.setString(1, keyword);
+            
+            rs = stmt.executeQuery();
+            
+            while(rs.next()) {
+                Post post = recordToPost(rs);
+                list.add(post);
+            }
+            log.info("list: {}", list);
+            
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                rs.close();
+                stmt.close();
+                conn.close();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+        
+        return list;
+    }
+    
+    private static final String SQL_READBYTCKEY_BY_TC = 
+            "select * from posts "
+                    + "where lower(title) like lower(?) "
+                    + "or lower(content) like lower(?) "
+                    + "order by id desc";
+
+    public List<Post> readByTcKey(String keyword) {
+        log.info("readByTcKey({})", keyword);
+        List<Post> list = new ArrayList<>();
+        
+        Connection conn = null;
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
+        
+        try {
+            conn = ds.getConnection();
+            stmt = conn.prepareStatement(SQL_READBYTCKEY_BY_TC);
+            keyword = "%" + keyword + "%";
+            stmt.setString(1, keyword);
+            stmt.setString(2, keyword);
+            
+            rs = stmt.executeQuery();
+            
+            while(rs.next()) {
+                Post post = recordToPost(rs);
+                list.add(post);
+            }
+            log.info("list: {}", list);
+            
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                rs.close();
+                stmt.close();
+                conn.close();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+        
+        return list;
+    }
+    
+    private static final String SQL_READBYAKEY_BY_A = 
+             "select * from posts where lower(author) like lower(?) order by id desc";
+
+    public List<Post> readByAKey(String keyword) {
+        log.info("readByAKey({})", keyword);
+        List<Post> list = new ArrayList<>();
+        
+        Connection conn = null;
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
+        
+        try {
+            conn = ds.getConnection();
+            stmt = conn.prepareStatement(SQL_READBYAKEY_BY_A);
+            keyword = "%" + keyword + "%";
+            stmt.setString(1, keyword);
+            
+            rs = stmt.executeQuery();
+            
+            while(rs.next()) {
+                Post post = recordToPost(rs);
+                list.add(post);
+            }
+            log.info("list: {}", list);
+            
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                rs.close();
+                stmt.close();
+                conn.close();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+        
+        return list;
     }
     
     
