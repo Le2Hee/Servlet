@@ -11,6 +11,13 @@
             <h1>로그인</h1>
         </header>
         
+        <nav>
+            <li>
+                <c:url var="mainPage" value="/" />
+                <a href="${ mainPage }">메인 페이지</a>
+            </li>
+        </nav>
+        
         <main>
             <form method="post"> 
             <!-- action 속성을 지정하지 않으면 현재 주소 그대로 요청을 보낸다. -->

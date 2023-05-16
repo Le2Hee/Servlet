@@ -93,6 +93,26 @@
                     <c:url var="mainPage" value="./"></c:url>
                     <a href="${ mainPage }">메인 페이지</a>
                 </li>
+                <!-- 로그인한 username이 있는 경우 -->
+                <c:if test="${ not empty signedInUser }" >
+                    <li>
+                        <span>${ signedInUser } 님</span>
+                        <c:url var="signOut" value="/user/signout" />
+                        <a href="${ signOut }">로그아웃</a>
+                    </li>
+                </c:if>
+                
+                <!-- 로그인한 username이 없는 경우 -->
+                <c:if test="${ empty signedInUser }" >
+                    <li>
+                        <c:url var="signInPage" value="/user/signin" />
+                        <a href="${ signInPage }">로그인</a>
+                    </li>
+                    <li>
+                        <c:url var="signUpPage" value="/user/signup" />
+                        <a href="${ signUpPage }">회원가입</a>
+                    </li>
+                </c:if>
                 <li>
                     <c:url var="postCreate" value="/post/create"></c:url>
                     <a href="${ postCreate }">새 포스트 작성</a>

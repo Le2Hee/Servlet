@@ -19,6 +19,11 @@
                     <a href="${ mainPage }">메인 페이지</a>
                 </li>
                 <li>
+                    <c:url var="signOut" value="/user/signout"></c:url>
+                    <span>${ signedInUser } 님</span>
+                    <a href="${ signOut }">로그아웃</a>
+                </li>
+                <li>
                     <c:url var="postList"  value="/post" />
                     <a href="${ postList }">포스트 목록 페이지</a>
                 </li>
@@ -47,10 +52,12 @@
                 <div>
                     작성자 : <input type="text" value="${ post.author }" readonly/>
                 </div>
-                <div>
-                    <button id="btnUpdate">수정완료</button>
-                    <button id="btnDelete">삭제</button>
-                </div>
+                <c:if test="${ signedInUser == post.author }">
+                    <div>
+                        <button id="btnUpdate">수정완료</button>
+                        <button id="btnDelete">삭제</button>
+                    </div>
+                </c:if>
                 
             </form>
         </main>

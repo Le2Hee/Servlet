@@ -86,6 +86,11 @@
                     <a href="${ mainPage }">메인 페이지</a>
                 </li>
                 <li>
+                    <c:url var="signOut" value="/user/signout"></c:url>
+                    <span>${ signedInUser } 님</span>
+                    <a href="${ signOut }">로그아웃</a>
+                </li>
+                <li>
                     <c:url var="postList"  value="/post" />
                     <a href="${ postList }">포스트 목록 페이지</a>
                 </li>
